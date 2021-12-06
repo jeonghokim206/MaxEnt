@@ -1,3 +1,5 @@
+% Two-dimensional van der pol oscillator
+
 function y = vanderpole(x,u)
     y = zeros(2,1);
     y(1) = x(2);

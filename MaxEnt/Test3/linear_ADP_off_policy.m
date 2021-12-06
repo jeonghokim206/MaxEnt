@@ -1,13 +1,17 @@
-clc, clf, clear, close all % 2020-09-14
+clc, clf, clear, close all 
 
-%% Parameters configuration
-xn = 20;
+% Linear ADP with off-policy learning via Max-ent exploration, compared to
+% the sinusoidal exploration. The code is based on the reference "Y. Jiang
+% and Z.-P. Jiang, Robust Adaptive Dynamic Programming, John Wiley & Sons,
+% 2017"
+
+%% Parameters 
+xn = 20; % dimensions of state and control
 un = 20;
 
-% Set the weighting matrices for the cost function
-Q = 0.1*diag(ones(xn,1));
+Q = 0.1*diag(ones(xn,1)); % Q and R matrices
 R = diag(ones(un,1));
-alpha = 1;
+alpha = 1; % relaxation parameter
 
 rng(150) % Initialize a fixed model A and B
 A=rss(xn,xn,un).A;
@@ -43,15 +47,13 @@ t_save = 0;
 % Initial condition of the augmented system
 X=[x0;kron(x0,zeros(xn,1));kron(x0,zeros(un,1))];
 expl_noise_freq = (rand(un,100)-.5)*100;
-%% Run the simulation and obtain the data matrices \delta_{xx},
-%I_{xx}, and I_{xu}
-
+%% Run the simulation and obtain the data matrices 
 tic
 while rank([Ixx, Ixu])<xn*(xn+1)/2 +xn*un
     
 %     Simulation the system and at the same time collect online info.
-    u = normrnd(-K*X(1:xn),alpha);
-%     u = 0.1*sum(sin(expl_noise_freq*T*i),2);
+    u = normrnd(-K*X(1:xn),alpha);               % MaxEnt exploration
+%     u = 0.1*sum(sin(expl_noise_freq*T*i),2);   % Sinusoidal exploration
     
     k1 = A * X(1:xn) + B * u;
     k2 = A * (X(1:xn) + T * k1 / 2) + B * u;

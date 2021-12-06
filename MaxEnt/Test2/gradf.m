@@ -1,3 +1,5 @@
+% Gradient of function f
+
 function Gf = gradf(x,u)
 
 Gf = zeros(4,4);

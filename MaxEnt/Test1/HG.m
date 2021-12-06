@@ -1,3 +1,5 @@
+% Godunov flux
+
 function y = HG(x,y,up,un,vp,vn)
 %     H1 = Hamiltonian([x;y],[up;vp]);
 %     H2 = Hamiltonian([x;y],[up;vn]);

@@ -1,3 +1,5 @@
+% Computing gradient of v, which appears in the paper by Chow et al.
+
 function dv = gradV(t,x,T)
 
 v0=[0;0];

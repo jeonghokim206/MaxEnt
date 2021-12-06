@@ -1,15 +1,15 @@
-%% successfully test the trajectory
+%% The main file, computing the controlled/uncontrolled trajectories.
 
 
-dt = 0.01;
-T = 2.5;
+dt = 0.01; % Time step
+T = 2.5;   % Maximal time for single iteration
 time = 0:dt:T;
 iter = length(time);
 
 
-x_total = zeros(4,8*(iter-1)+1);
-x0 = 0.1*[0.5;2.5;0;0.2];
-x_total(:,1) = x0;
+x_total = zeros(4,8*(iter-1)+1); % prelocating the position vector for the 8 copies of the iteration
+x0 = 0.1*[0.5;2.5;0;0.2]; % initial data
+x_total(:,1) = x0; % initial data allocation
 
 for K = 1:8
     K
@@ -26,7 +26,13 @@ for K = 1:8
 %                 break
 %             end
 %         end
-        U = zeros(1,1000);
+        
+        % Uncontrolled
+        
+        U = zeros(1,1000);          
+        
+        % Controlled
+        
 %         for j = 1:1000
 %            while true
 %                 y = 2*rand-1; q=rand(1);

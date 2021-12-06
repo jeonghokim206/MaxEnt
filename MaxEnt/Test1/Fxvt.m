@@ -1,3 +1,5 @@
+% Computing F(x,v,t) which appears in the paper by Chow et al.
+
 function y = Fxvt(x,v,t)
     dt = 0.05;
     T = 0:dt:t;

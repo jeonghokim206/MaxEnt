@@ -1,3 +1,5 @@
+% Generating the image from the data
+
 clc, clf, clear, close all
 
 load x_traj_total_control;

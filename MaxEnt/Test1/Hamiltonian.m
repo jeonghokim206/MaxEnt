@@ -1,3 +1,5 @@
+% Computing Hamiltonian
+
 function y=Hamiltonian(x,p)
 
 alpha=0.1;

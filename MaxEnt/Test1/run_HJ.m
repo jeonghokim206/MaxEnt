@@ -1,3 +1,7 @@
+% Comparing the solution to the Hamilton-Jacobi solvers
+% Grid-free scheme (Y.T. Chow, J. Darbon, S. Osher, and W. Yin, JSC, 617-643 2017) is compared with
+% the standard finite difference methods using Godunov/Lax-Friedrich flux.
+
 clc, clf, clear, close all
 
 N = 100;
@@ -8,13 +12,15 @@ dy = y(2)-y(1);
 W = zeros(N,N);
 for i = 1:N
     for j = 1:N
-        W(i,j) = abs(x(i))+abs(y(j));
+        W(i,j) = abs(x(i))+abs(y(j)); % iniital data
     end
 end
 
-dt = 0.001;
-iter = ceil(0.1/dt);
+dt = 0.001; % time step
+iter = ceil(0.1/dt); % iteration = final time/time step
 Wp = W;
+
+%% Finite difference scheme
 
 for k=1:iter-1
     for i = 2:N-1
@@ -26,10 +32,11 @@ for k=1:iter-1
             vp = (W(i,jp)-W(i,j))/dy;
             vn = (W(i,j)-W(i,jn))/dy;
             
-%             Wp(i,j) = W(i,j) - dt*HLF(x(i),y(j),up,un,vp,vn);
-            Wp(i,j) = W(i,j) - dt*HG(x(i),y(j),up,un,vp,vn);
+%             Wp(i,j) = W(i,j) - dt*HLF(x(i),y(j),up,un,vp,vn); % LF-flux
+            Wp(i,j) = W(i,j) - dt*HG(x(i),y(j),up,un,vp,vn);    % Godunov-flux
         end
     end
+    % Boundary conditions via extrapolation
     for j=2:N-1
 %         Wp(1,j) = 2*Wp(2,j)-Wp(3,j);
 %         Wp(N,j) = 2*Wp(N-1,j)-Wp(N-2,j);
@@ -50,7 +57,8 @@ for k=1:iter-1
     W=Wp;
     k
 end
-%%
+%% Grid-free scheme
+
 W_grid_free = zeros(N,N);
 
 for i = 1:N

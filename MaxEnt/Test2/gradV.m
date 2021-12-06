@@ -1,4 +1,6 @@
-function dv = gradV(t,x,T)   % Calculate \nabla_x V(t,x)
+ % Calculate the gradient of V appears in the paper Chow et. al
+
+function dv = gradV(t,x,T)  
 
 % v0=[0;0;0;0];
 v0 = 2*rand(4,1)-1;

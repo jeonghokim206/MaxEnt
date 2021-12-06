@@ -1,15 +1,19 @@
-clc, clf, clear, close all % 2020-09-14
+clc, clf, clear, close all 
 
-%% Parameters configuration
-xn = 10;
+% Linear ADP with on-policy learning via Max-ent exploration, compared to
+% the sinusoidal exploration. The code is based on the reference "Y. Jiang
+% and Z.-P. Jiang, Robust Adaptive Dynamic Programming, John Wiley & Sons,
+% 2017"
+
+%% Parameters
+xn = 10; % dimensions of state and control
 un = 10;
 
-% Set the weighting matrices for the cost function
-Q = 1e-1*diag(ones(xn,1));
+Q = 1e-1*diag(ones(xn,1)); % Q and R matrices
 R = 1*diag(ones(un,1));
-alpha = 4e-4;              
+alpha = 0.1; % relaxation parameter              
 
-rng(200)  % 5
+rng(200)  % Initialize a fixed model A and B
 A=rss(xn,xn,un).A;
 A = A + (-max(real(eig(A)))-0.01)*eye(xn);
 B=rss(xn,xn,un).B;
@@ -59,9 +63,9 @@ while norm(P-P_old)>5e-1 && it< MaxIteration
     
     while rank(Theta)< xn*(xn+1)/2 +xn*un 
         
-        u = normrnd(-K*X(1:xn),alpha); e = u+K*X(1:xn);
-%         u = -Kopt * X(1:xn); e = zeros(un,1);
-%         e = 0.1*sum(sin(expl_noise_freq*T*i),2); u = -K*X(1:xn)+e;
+        u = normrnd(-K*X(1:xn),alpha); e = u+K*X(1:xn);                  % MaxEnt exploration
+%         u = -Kopt * X(1:xn); e = zeros(un,1);                          % Optimal control
+%         e = 0.1*sum(sin(expl_noise_freq*T*i),2); u = -K*X(1:xn)+e;     % Sinusoidal exploration
         
         k1 = A * X(1:xn) + B * u;
         k2 = A * (X(1:xn) + T * k1 / 2) + B * u;
@@ -116,10 +120,10 @@ x = traj_save(:,end);
 cost = cost_save(end);
 for i = 1:length(t)-1
     
-%     u = normrnd(-K*x,alpha);
+%     u = normrnd(-K*x,alpha); % MaxEnt control
     u = -K*x;
-%     u = -Kopt*x;
-%     u = zeros(un,1);
+%     u = -Kopt*x;  % Optimal control
+%     u = zeros(un,1); % Uncontrolled
     
     k1 = A * x + B * u;
     k2 = A * (x + T_use * k1 / 2) + B * u;
