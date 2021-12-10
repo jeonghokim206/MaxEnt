@@ -31,7 +31,7 @@ Controlled and uncontrolled trajectories of the extended van der Pol oscillator.
 ---
 
 ## Test 3
-The third test is implementation of the maximum entropy optimal control without the model parameters and compare it with the standard sinusoidal exploration. We present two codes for the on-policy and off-policy learning in "linear_ADP_on_policy.m" and "linear_ADP_off_policy.m" respectively. Both of codes are based on the reference "Y. Jiang and Z.-P. Jiang, Robust Adaptive Dynamic Programming, John Wiley & Sons, 2017". Please make sure that the "Control System Toolbox" of the MATLAB is prepared.
+The third test is implementation of the maximum entropy optimal control without the model parameters and compare it with the standard sinusoidal exploration. We present two codes for the on-policy and off-policy learning in "linear_ADP_on_policy.m" and "linear_ADP_off_policy.m" respectively. Both of codes are based on the reference "Y. Jiang and Z.-P. Jiang, Robust Adaptive Dynamic Programming, John Wiley & Sons, 2017". Please make sure that the "[Control System Toolbox](https://www.mathworks.com/products/control.html)" of the MATLAB is prepared.
 
 To conduct the numerical test, simply run one of the files, depending on the type of test (on-policy or off-policy). One can choose one of the exploration, either MaxEnt exploration or sinusoidal exploration by uncomment each of exploration. The result returns the traj_save that shows the controlled trajectory. Each of main file shows the trajectory of the system before and after the learning the optimal control, and the aggregated total running cost.
 
