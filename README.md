@@ -1,7 +1,6 @@
 # MaxEnt
 
-This include the codes for the numerical simulation in the paper "Hamilton-Jacobi-Bellman Equations for Maximum Entropy Opitmal Control" in arXiv: https://arxiv.org/abs/2009.13097.
-We present codes for three tests:
+We present the codes for the numerical simulation in the paper "Hamilton-Jacobi-Bellman Equations for Maximum Entropy Opitmal Control" in arXiv: https://arxiv.org/abs/2009.13097.
 
 ## Test 1
 The first test is to validate the grid-free scheme for Hamilton-Jacobi equations based on the paper "Algorithm for Overcoming the Curse of Dimensionality for State-dependent Hamilton-Jacobi equations" by Y. T. Chow et al. (J. Comp. Phys. 387 pp. 376-409, 2019). We compare the grid-free scheme with the standard finite difference method using Godunov flux. 
