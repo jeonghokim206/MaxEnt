@@ -26,12 +26,12 @@ for k=1:iter-1
     for i = 2:N-1
         for j=2:N-1
             ip = i+1; in = i-1; jp = j+1; jn = j-1;
-          
+
             up = (W(ip,j)-W(i,j))/dx;
             un = (W(i,j)-W(in,j))/dx;
             vp = (W(i,jp)-W(i,j))/dy;
             vn = (W(i,j)-W(i,jn))/dy;
-            
+
 %             Wp(i,j) = W(i,j) - dt*HLF(x(i),y(j),up,un,vp,vn); % LF-flux
             Wp(i,j) = W(i,j) - dt*HG(x(i),y(j),up,un,vp,vn);    % Godunov-flux
         end
@@ -53,7 +53,7 @@ for k=1:iter-1
     Wp(N,1) = Wp(N-1,1)+Wp(N,2)-Wp(N-1,2);
     Wp(1,N) = Wp(2,N)+Wp(1,N-1)-Wp(2,N-1);
     Wp(N,N) = Wp(N,N-1)+Wp(N-1,N)-Wp(N-1,N-1);
-   
+
     W=Wp;
     k
 end
@@ -65,7 +65,7 @@ for i = 1:N
     for j = 1:N
         grad = gradV(0,[x(i);y(j)],0.1);
         W_grid_free(i,j) = Fxvt([x(i);y(j)],grad,0.1);
-        i 
+        i
         j
     end
 end
@@ -112,4 +112,3 @@ imagesc(x,y,W-W_grid_free)
 xlabel('$x$','interpreter','latex','fontsize',18);
 ylabel('$y$','interpreter','latex','fontsize',18);
 colorbar
-
